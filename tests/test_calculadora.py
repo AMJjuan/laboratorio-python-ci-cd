@@ -1,5 +1,5 @@
 import pytest
-from src.calculator import Calculator
+from src.calculadora import Calculator
 
 class TestCalculator:
     def setup_method(self):
