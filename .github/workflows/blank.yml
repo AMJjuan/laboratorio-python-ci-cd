@@ -34,8 +34,9 @@ jobs:
     
     - name: Ejecutar pruebas unitarias
       run: |
-        python -m pytest tests/ -v --cov=src --cov-report=xml
+        python -m pytest tests/test_calculadora.py -v --cov=src --cov-report=xml
         echo "✅ Pruebas unitarias ejecutadas"
+        - name: Ejecutar pruebas unitarias
     
     - name: Subir reporte de cobertura
       uses: codecov/codecov-action@v3
@@ -45,12 +46,12 @@ jobs:
     # ========== ETAPA 3: DOCKER & DEPLOY ==========
     - name: Construir imagen Docker de la calculadora
       run: |
-        docker build -t python-calculator:latest .
+        docker build -t python-calculadora:latest .
         echo "✅ Imagen Docker construida"
     
     - name: Ejecutar pruebas en contenedor
       run: |
-        docker run --rm python-calculator:latest
+        docker run --rm python-calculadora:latest
         echo "✅ Pruebas ejecutadas en contenedor"
     
     - name: Simular despliegue
