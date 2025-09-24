@@ -9,29 +9,24 @@ on:
 jobs:
   python-calculadora-ci:
     runs-on: ubuntu-latest
-
     steps:
     # ========== ETAPA 1: SETUP ==========
     - name: Checkout del código
       uses: actions/checkout@v3
-
     - name: Configurar Python 3.10
       uses: actions/setup-python@v3
       with:
         python-version: '3.10'
         cache: 'pip'
-
 # ========== ETAPA 2: BUILD & TEST ==========
     - name: Instalar dependencias
       run: |
         pip install -r requirements.txt
         echo "✅ Dependencias instaladas"
-
     - name: Ejecutar linter (Flake8)
       run: |
         python -m flake8 src/ --max-line-length=100
         echo "✅ Análisis de código completado"
-
     - name: Ejecutar pruebas unitarias
       run: |
         python -m pytest tests/test_calculadora.py -v --cov=src --cov-report=xml
@@ -41,7 +36,6 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         file: ./coverage.xml
-
     # ========== ETAPA 3: DOCKER & DEPLOY ==========
     - name: Construir imagen Docker de la calculadora
       run: |
@@ -52,7 +46,6 @@ jobs:
       run: |
         docker run --rm python-calculadora:latest
         echo "✅ Pruebas ejecutadas en contenedor"
-
     - name: Simular despliegue
       run: |
         echo "🚀 SIMULANDO DESPLIEGUE DE CALCULADORA PYTHON"
